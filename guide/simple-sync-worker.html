@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Simple synchronous JavaScript example</title>
+  </head>
+  <body>
+    <button>Click me</button>
+    <script>
+      const btn = document.querySelector('button');
+      // https://stackoverflow.com/questions/21408510/chrome-cant-load-web-worker.
+      // use (python3 -m http.server 8000) to run a sample http server to test this.
+      
+      // Web workers are pretty useful, but they do have their limitations. A major one is they are not able to access the DOM.
+      const worker = new Worker('js/simple-sync-worker.js');
+
+      btn.addEventListener('click', () => {
+        worker.postMessage('Go!');
+
+        let pElem = document.createElement('p');
+        pElem.textContent = 'This is a newly-added paragraph.';
+        document.body.appendChild(pElem);
+      });
+
+      worker.onmessage = function(e) {
+        console.log(e.data);
+      }
+    </script>
+  </body>
+</html>
