@@ -6,27 +6,45 @@
   </head>
   <body>
     <script>
-        function loadAsset(url, type, callback) {
-            let xhr = new XMLHttpRequest();
-            xhr.open('GET', url);
-            xhr.responseType = type;
+        // function loadAsset(url, type, callback) {
+        //     let xhr = new XMLHttpRequest();
+        //     xhr.open('GET', url);
+        //     xhr.responseType = type;
     
-            xhr.onload = function() {
-            callback(xhr.response);
-            };
+        //     xhr.onload = function() {
+        //     callback(xhr.response);
+        //     };
     
-            xhr.send();
-        }
+        //     xhr.send();
+        // }
     
-        function displayImage(blob) {
-            let objectURL = URL.createObjectURL(blob);
+        // function displayImage(blob) {
+        //     let objectURL = URL.createObjectURL(blob);
     
-            let image = document.createElement('img');
-            image.src = objectURL;
-            document.body.appendChild(image);
-        }
+        //     let image = document.createElement('img');
+        //     image.src = objectURL;
+        //     document.body.appendChild(image);
+        // }
     
-        loadAsset('https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg', 'blob', displayImage);
+        // loadAsset('https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg', 'blob', displayImage);
+
+        // modern fetch usage.
+      console.log('Starting');
+      let image;
+
+      fetch('https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg').then((response) => {
+        console.log('It worked :)')
+        return response.blob();
+      }).then((myBlob) => {
+        let objectURL = URL.createObjectURL(myBlob);
+        image = document.createElement('img');
+        image.src = objectURL;
+        document.body.appendChild(image);
+      }).catch((error) => {
+        console.log('There has been a problem with your fetch operation: ' + error.message);
+      });
+
+      console.log ('All done!');
     </script>
     </body>
 </html>
