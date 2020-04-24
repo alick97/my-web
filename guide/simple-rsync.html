@@ -30,21 +30,38 @@
 
         // modern fetch usage.
       console.log('Starting');
-      let image;
+      // let image;
 
-      fetch('https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg').then((response) => {
-        console.log('It worked :)')
-        return response.blob();
-      }).then((myBlob) => {
-        let objectURL = URL.createObjectURL(myBlob);
-        image = document.createElement('img');
-        image.src = objectURL;
-        document.body.appendChild(image);
-      }).catch((error) => {
-        console.log('There has been a problem with your fetch operation: ' + error.message);
-      });
+      // fetch('https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg').then((response) => {
+      //   console.log('It worked :)')
+      //   return response.blob();
+      // }).then((myBlob) => {
+      //   let objectURL = URL.createObjectURL(myBlob);
+      //   image = document.createElement('img');
+      //   image.src = objectURL;
+      //   document.body.appendChild(image);
+      // }).catch((error) => {
+      //   console.log('There has been a problem with your fetch operation: ' + error.message);
+      // });
 
-      console.log ('All done!');
+      // use async and await grammar sugar replace promise then method.
+      async function myFetch(url) {
+        try {
+          let response = await fetch(url);
+          console.log('It worked :)');
+          let myBlob = await response.blob();
+
+          let objectURL = URL.createObjectURL(myBlob);
+          let image = document.createElement('img');
+          image.src = objectURL;
+          document.body.appendChild(image);
+        } catch(error) {
+          console.log('There has been a problem with your fetch operation: ' + error.message);
+        }
+      }
+
+      myFetch('https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg');
+      console.log('All done!');
     </script>
     </body>
 </html>
