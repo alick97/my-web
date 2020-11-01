@@ -1,0 +1,13 @@
+{
+  "name": "todo_list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "redux": "^4.0.5"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}
