@@ -1,0 +1,16 @@
+{
+  "name": "react_t",
+  "version": "1.0.0",
+  "description": "just for learn react and typescript",
+  "main": "index.js",
+  "dependencies": {
+    "tslint": "^6.1.3",
+    "typescript": "^4.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
