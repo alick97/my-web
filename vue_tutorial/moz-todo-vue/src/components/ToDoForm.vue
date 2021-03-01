@@ -9,8 +9,9 @@
            name="new-todo"
            autocomplete="off"
            v-model.lazy.trim="label"
+           class="input__lg"
        />
-       <button type="submit">
+       <button type="submit" class="btn btn__primary btn__lg">
            Add
        </button>
    </form> 
