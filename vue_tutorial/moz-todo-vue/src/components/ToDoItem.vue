@@ -33,11 +33,15 @@ export default {
         done: {default: false, type: Boolean},
         id: {required: true, type: String}
     },
+    computed: {
+        isDone() {
+          return this.done;
+        }
+    },
     data() {
         return {
-            isDone: this.done,
             isEditing: false
-        };
+        }
     },
     methods: {
         deleteToDo() {
