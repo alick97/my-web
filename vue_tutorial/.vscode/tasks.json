@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "serve",
+			"path": "moz-todo-vue/",
+			"problemMatcher": [],
+			"label": "npm: serve - moz-todo-vue",
+			"detail": "#### vue-cli-service serve",
+			"isBackground": true
+		}
+	]
+}
