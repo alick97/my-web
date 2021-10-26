@@ -7,6 +7,7 @@ authors = ["alick97 <alick97@outlook.com>"]
 [tool.poetry.dependencies]
 python = "^3.7"
 Flask = "2.0.2"
+Flask-Security-Too = "4.1.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
