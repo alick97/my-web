@@ -1,1 +1,8 @@
+# pakage
 dist
+# data
+*.sqlite
+
+# python
+__pycache__
+
