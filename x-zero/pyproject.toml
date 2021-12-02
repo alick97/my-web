@@ -1,18 +1,3 @@
-[tool.poetry]
-name = "x-zero"
-version = "0.1.0"
-description = "web practise"
-authors = ["alick97 <alick97@outlook.com>"]
-
-[tool.poetry.dependencies]
-python = "^3.7"
-Flask = "2.0.2"
-Flask-Security-Too = {version = "4.1.2", extras = ["fsqla", "common"]}
-alembic = "^1.7.4"
-
-[tool.poetry.dev-dependencies]
-pytest = "^5.2"
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[tool.isort]
+profile = "black"
+skip_glob = ["migrations/*"]
