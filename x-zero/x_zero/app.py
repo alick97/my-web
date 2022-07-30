@@ -6,6 +6,7 @@ import sys
 from flask import Flask, render_template
 
 from x_zero import commands, public, user
+from x_zero.authenticate.resource import AuthResource
 from x_zero.extensions import (
     bcrypt,
     cache,
@@ -15,6 +16,8 @@ from x_zero.extensions import (
     flask_static_digest,
     login_manager,
     migrate,
+    restful_api,
+    ma,
 )
 
 
@@ -30,6 +33,8 @@ def create_app(config_object="x_zero.settings"):
     register_errorhandlers(app)
     register_shellcontext(app)
     register_commands(app)
+    register_marshallow(app)
+    register_restful_api(app)
     configure_logger(app)
     return app
 
@@ -39,11 +44,12 @@ def register_extensions(app):
     bcrypt.init_app(app)
     cache.init_app(app)
     db.init_app(app)
-    csrf_protect.init_app(app)
+    # csrf_protect.init_app(app)
     login_manager.init_app(app)
     debug_toolbar.init_app(app)
     migrate.init_app(app, db)
     flask_static_digest.init_app(app)
+    restful_api.init_app(app)
     return None
 
 
@@ -83,6 +89,16 @@ def register_commands(app):
     app.cli.add_command(commands.test)
     app.cli.add_command(commands.lint)
 
+
+def register_marshallow(app):
+    """Register marshallow"""
+    ma.init_app(app)
+
+def register_restful_api(app):
+    """Register restful api"""
+    # route
+    restful_api.add_resource(AuthResource, "/api/v1/auth/login")
+    restful_api.init_app(app)
 
 def configure_logger(app):
     """Configure loggers."""
