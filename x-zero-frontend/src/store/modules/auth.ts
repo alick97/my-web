@@ -11,6 +11,13 @@ interface AuthParam {
     password: string;
 }
 
+// getters
+const getters = {
+    isAuthorizedOk(state) {
+        return state.isAuthenticated;
+    }
+}
+
 // actions
 const actions = {
     async authorize({commit, state}, authParam: AuthParam) {
@@ -37,6 +44,7 @@ const mutations = {
 export default {
     namespaced: true,
     state,
+    getters,
     actions,
     mutations,
 }

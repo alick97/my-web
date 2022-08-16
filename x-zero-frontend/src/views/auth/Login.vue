@@ -1,7 +1,7 @@
 <template>
 <div>
-<p>welcome to login in page <span v-if="isAuthorizedOk()"> , {{ store.state.auth.user.name }} </span></p>
-<Form ref="formInline" :model="formInline" :rules="ruleInline">
+<p>welcome to login in page <span v-if="isAuthorizedOk"> , {{ store.state.auth.user.name }} </span></p>
+<Form ref="form" :model="formInline" :rules="ruleInline" @on-validate="handleValidate">
     <FormItem prop="name">
         <Input type="text" v-model="name" placeholder="Username"></Input>
     </FormItem>
@@ -9,7 +9,8 @@
         <Input type="password" v-model="password" placeholder="Password"></Input>
     </FormItem>
     <FormItem>
-        <Button type="primary" @click="handleSubmit">Signin</Button>
+        <Button class="form-button" type="primary" @click="handleSubmit">Signin</Button>
+        <Button class="form-button" type="primary" @click="resetForm">Reset</Button>
     </FormItem>
 </Form>
 
@@ -17,10 +18,13 @@
 </template>
 <script setup lang="ts">
 import { Form, FormItem, Input, Button } from "view-ui-plus";
-import { reactive, ref, watch } from "vue";
+import { reactive, ref, watch, computed } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "../../store";
 
 const store = useStore();
+const router = useRouter();
+const form = ref(null);
 
 const name = ref("");
 const password = ref("");
@@ -50,16 +54,33 @@ function handleSubmit() {
     store.dispatch("auth/authorize", {name: name.value, password: password.value})
 }
 
-function isAuthorizedOk() {
-    return store.state.auth.isAuthenticated;
+function handleValidate(prop: string, status: boolean, error: string) {
+    console.log("handle validate", prop, status, error);
 }
 
-watch(() => store.state.auth.isAuthenticated, () => {
-    if (isAuthorizedOk()) {
+function resetForm() {
+    form.value?.resetFields();
+}
+
+const isAuthorizedOk = computed(() => {
+    return store.getters["auth/isAuthorizedOk"];
+});
+
+watch(() => isAuthorizedOk.value, (isOk) => {
+    console.log("is auth ok change,", isOk);
+    if (isOk) {
       name.value = store.state.auth.user.name;
+      router.push({name: "home"});
+      console.log("success login, go home ...");
     } else {
       name.value = "";
     }
 })
 
 </script>
+<style lang="scss" scoped>
+.form-button {
+    margin-right: 1rem;
+}
+
+</style>

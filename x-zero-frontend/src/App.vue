@@ -6,7 +6,6 @@ import { Button } from 'view-ui-plus'
 import { useRouter, RouterLink, useRoute, RouterView} from 'vue-router'
 
 const router = useRouter()
-// const route = useRoute()
 
 </script>
 
