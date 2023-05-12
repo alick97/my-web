@@ -10,15 +10,16 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "autoapp.py",
+                "FLASK_APP": "x_zero/app.py",
                 "FLASK_ENV": "development"
             },
+            "envFile": "${workspaceFolder}/.env",
             "args": [
                 "run",
-                "--no-reload"
+                "--no-debugger"
             ],
-            "jinja": true,
             "justMyCode": false,
+            "jinja": true
         }
     ]
 }
