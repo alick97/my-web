@@ -3,10 +3,11 @@
 import logging
 import sys
 
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 
 from x_zero import commands, public, user
 from x_zero.authenticate.resource import AuthResource
+from x_zero.authenticate.exception import AuthError
 from x_zero.extensions import (
     bcrypt,
     cache,
@@ -70,6 +71,11 @@ def register_errorhandlers(app):
 
     for errcode in [401, 404, 500]:
         app.errorhandler(errcode)(render_error)
+    
+    def _handler_auth_error(error):
+        return jsonify({"message": str(error)}), 401
+
+    app.errorhandler(AuthError)(_handler_auth_error)
     return None
 
 
