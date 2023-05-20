@@ -36,7 +36,7 @@ const formInline = reactive({
 
 const ruleInline = {
     name: [
-        { required: true, message: "Please fill in the user name", trigger: "blur" }
+        { required: true, message: "Please fill in the user name", trigger: "blur" },
     ],
     password: [
         { required: true, message: "Please fill in the password", trigger: "blur" },
@@ -50,8 +50,14 @@ interface AuthParam {
 }
 
 function handleSubmit() {
-    console.log(formInline.name, formInline.password);
-    store.dispatch("auth/authorize", {name: name.value, password: password.value})
+    form.value?.validate((valid) => {
+        if (valid) {
+            console.log(formInline.name, formInline.password);
+            store.dispatch("auth/authorize", {name: name.value, password: password.value})
+        } else {
+            this.$Message.error("login failed");
+        }
+    })
 }
 
 function handleValidate(prop: string, status: boolean, error: string) {
