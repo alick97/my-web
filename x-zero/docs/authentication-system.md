@@ -4,7 +4,7 @@
 left to right direction
 
 actor User as U
-package AuthenticationSystem {
+package "Authentication System" {
   usecase "Register" as UC1
   usecase "Login" as UC2
   usecase "Logout" as UC3
