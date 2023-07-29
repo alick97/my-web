@@ -189,3 +189,7 @@ poetry install
 
 #### Other
 - [awesome-flask](https://github.com/humiaozuzu/awesome-flask)
+
+#### TODO:
+- change all wtf to marshmallow for serializeing and deserializing betterly
+- remove old template for dividing frontend independently
