@@ -8,6 +8,7 @@ from flask import Flask, render_template, jsonify
 from x_zero import commands, public, user
 from x_zero.authenticate.resource import AuthResource
 from x_zero.authenticate.exception import AuthError
+from x_zero.user.resource import UserResource
 from x_zero.extensions import (
     bcrypt,
     cache,
@@ -103,6 +104,8 @@ def register_restful_api(app):
     """Register restful api"""
     # route
     restful_api.add_resource(AuthResource, "/api/v1/auth/login")
+    # user route
+    restful_api.add_resource(UserResource, "/api/v1/user")
     restful_api.init_app(app)
 
 def configure_logger(app):
