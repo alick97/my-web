@@ -7,4 +7,7 @@ import { RouterLink } from 'vue-router';
   <div>
     <RouterLink to="/login">Sign in</RouterLink>
   </div>
+  <div>
+    <RouterLink to="/component-test">/component-test</RouterLink>
+  </div>
 </template>
