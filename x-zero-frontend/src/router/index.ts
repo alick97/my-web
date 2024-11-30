@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/home/Home.vue'
 import Login from '../views/auth/Login.vue'
 import ComponentTest from '../views/componentTest/ComponentTest.vue'
+import XZUIComponentDemo from '../views/xzUIComponentDemo/ComponentTest.vue'
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: '/component-test',
     name: 'component-test',
     component: ComponentTest
+  },
+  {
+    path: '/xz-ui-component-demo',
+    name: 'xz-ui-component-demo',
+    component: XZUIComponentDemo
   }
 ]
 
