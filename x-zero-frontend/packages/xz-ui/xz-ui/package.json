@@ -1,0 +1,12 @@
+{
+    "name": "@xz-ui/xz-ui",
+    "description": "A Component Library for Vue 3",
+    "private": true,
+    "version": "0.0.1",
+    "license": "MIT",
+    "main": "index.ts",
+    "peerDependencies": {
+      "vue": "^3.2.0"
+    }
+}
+ 

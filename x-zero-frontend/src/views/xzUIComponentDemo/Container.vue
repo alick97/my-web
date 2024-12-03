@@ -10,7 +10,6 @@
   </div>
 </template>
 <script lang="ts" setup>
-import XZContainer from "@xz-ui/components/container"
 </script>
 <style lang="scss">
 .container {
