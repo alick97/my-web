@@ -1,0 +1,15 @@
+// CSS3 var
+@use 'common/var' as *;
+@use 'mixins/var' as *;
+@use 'mixins/mixins' as *;
+
+// for better performance do no dynamically change the root variable
+// https://lisilinhart.info/posts/css-variables-performance/
+
+// Blocks, Elements and Modifiers https://getbem.com/introduction/
+
+// common
+:root {
+    // @include set-css-var-value('color-white', $color-white);
+    // @include set-css-var-value('color-black', $color-black); 
+}

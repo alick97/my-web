@@ -1,8 +1,9 @@
 import { createApp } from 'vue'
-import './style.css'
+import './style.scss'
 import App from './App.vue'
 import router from './router'
 import { store } from './store'
+// TODO: remove view ui
 import ViewUIPlus from 'view-ui-plus'
 import 'view-ui-plus/dist/styles/viewuiplus.css'
 import ElementPlus from 'element-plus'
