@@ -3,7 +3,7 @@ import { RouterLink } from 'vue-router';
 
 </script>
 <template>
-  <x-z-container>
+  <x-z-container class="xz-home h-full">
     <x-z-header class="flex justify-center">
       <h1 class="text-4xl font-bold underline">X-ZERO</h1>
     </x-z-header>
@@ -24,4 +24,7 @@ import { RouterLink } from 'vue-router';
   </x-z-container>
 </template>
 <style lang="scss" scoped>
+.xz-home {
+  background-color: var(--xz-color-primary-light-9);
+}
 </style>
