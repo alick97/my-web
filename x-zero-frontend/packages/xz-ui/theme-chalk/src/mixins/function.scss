@@ -11,3 +11,13 @@
   }
   @return $name;
 }
+
+// getCssVarName('button', 'text-color') => '--xz-button-text-color'
+@function getCssVarName($args...) {
+  @return joinVarName($args);
+}
+
+// getCssVar('button', 'text-color') => var(--xz-button-text-color)
+@function getCssVar($args...) {
+  @return var(#{joinVarName($args)});
+}

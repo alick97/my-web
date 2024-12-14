@@ -4,7 +4,9 @@
       <p class="example-title">common layout</p>
       <div class="example-body">
         <x-z-container class="container">
-          placeholder
+          <x-z-container>
+            <x-z-main>Main</x-z-main>
+          </x-z-container>
         </x-z-container>
       </div>
     </div>
@@ -12,13 +14,13 @@
 </template>
 <script lang="ts" setup>
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .container {
   background-color: var(--xz-color-primary-light-7);
-  .el-aside {
+  .xz-aside {
     background-color: var(--xz-color-primary-light-8);
   }
-  .el-main {
+  .xz-main {
     background-color: var(--xz-color-primary-light-9);
   }
 }

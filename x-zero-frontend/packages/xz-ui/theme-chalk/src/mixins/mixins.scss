@@ -1,5 +1,11 @@
 @use 'function' as *;
 @use 'config' as *;
+@use '../common/var' as *;
+
+// forward mixins
+@forward 'config';
+@forward 'function';
+@forward '_var';
 
 // BEM
 @mixin b($block) {
