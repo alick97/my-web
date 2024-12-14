@@ -93,3 +93,13 @@ $main: map.merge(
   ),
   $main
 );
+
+// header
+$header: () !default;
+$header: map.merge(
+ (
+  'padding': 0 20px,
+  'height': 60px,
+ ),
+ $header
+);

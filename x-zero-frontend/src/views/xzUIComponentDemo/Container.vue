@@ -5,6 +5,7 @@
       <div class="example-body">
         <x-z-container class="container">
           <x-z-container>
+            <x-z-header height="4em">Header</x-z-header>
             <x-z-main>Main</x-z-main>
           </x-z-container>
         </x-z-container>
