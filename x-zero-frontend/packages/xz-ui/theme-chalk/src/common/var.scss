@@ -103,3 +103,12 @@ $header: map.merge(
  ),
  $header
 );
+// footer
+$footer: () !default;
+$footer: map.merge(
+  (
+    'padding': 0 20px,
+    'height': 60px,
+  ),
+  $footer
+);
