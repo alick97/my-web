@@ -4,8 +4,9 @@
       <p class="example-title">common layout</p>
       <div class="example-body">
         <x-z-container class="container">
-            <x-z-header height="4em">Header</x-z-header>
+            <x-z-header height="60px">Header</x-z-header>
             <x-z-container>
+              <x-z-aside width="200px">Aside</x-z-aside>
               <x-z-main>Main</x-z-main>
             </x-z-container>
             <x-z-footer>Footer</x-z-footer>
