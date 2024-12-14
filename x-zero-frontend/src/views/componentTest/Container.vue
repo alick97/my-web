@@ -17,7 +17,7 @@
     </div>
   </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 .container {
   background-color: var(--el-color-primary-light-7);
   .el-aside {
