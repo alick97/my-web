@@ -27,6 +27,7 @@
 import { ref, defineComponent, markRaw } from 'vue';
 import LayoutExample from './Layout.vue';
 import ContainerExample from './Container.vue';
+import InputExample from './Input.vue';
 
 interface ComponentPageOption {
   key: number,
@@ -37,7 +38,8 @@ interface ComponentPageOption {
 const componentExampleList: ComponentPageOption[] = [
   {key: 0, label: "Main", component: null},
   {key: 1, label: "Layout布局", component: markRaw(LayoutExample)},
-  {key: 2, label: "Container布局容器", component: markRaw(ContainerExample)}
+  {key: 2, label: "Container布局容器", component: markRaw(ContainerExample)},
+  {key: 3, label: "Input输入框", component: markRaw(InputExample)}
 ]
 const activeComponentKey = ref(0)
 const currentComponentPage = ref<null|ReturnType<typeof defineComponent>>(null)
