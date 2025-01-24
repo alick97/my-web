@@ -1,0 +1,44 @@
+# Everything needed in production
+
+# Flask
+Flask>=2.0
+click
+
+# Database
+Flask-SQLAlchemy
+SQLAlchemy
+psycopg2-binary
+
+# Migrations
+Flask-Migrate
+
+# Forms
+email-validator
+Flask-WTF
+WTForms
+flask-marshmallow
+
+# Deployment
+# gevent==21.8.0
+# gunicorn>=23.0.0
+supervisor
+
+# Flask Static Digest
+Flask-Static-Digest
+
+# Auth
+Flask-Login
+Flask-Bcrypt
+Flask-Cors
+
+# Caching
+Flask-Caching
+
+# Debug toolbar
+Flask-DebugToolbar
+
+# Environment variable parsing
+environs
+
+# Framework
+Flask-RESTful

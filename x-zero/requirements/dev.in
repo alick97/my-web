@@ -1,0 +1,17 @@
+-r prod.in
+
+# Testing                                                                                                                                                          
+pytest>=6.2.5                                                                                                                                                      
+WebTest>=3.0.0                                                                                                                                                     
+factory-boy>=3.2.1                                                                                                                                                 
+pdbpp>=0.10.3                                                                                                                                                      
+                                                                                                                                                                   
+# Lint and code style                                                                                                                                              
+black>=21.11b1                                                                                                                                                     
+# flake8>=4.0.1                                                                                                                                                      
+# flake8blindexcept>=0.2.0                                                                                                                                         
+# flake8debugger>=4.0.0                                                                                                                                             
+# flake8docstrings>=1.6.0                                                                                                                                           
+# flake8isort>=4.1.1                                                                                                                                                
+# isort>=5.10.1                                                                                                                                                      
+# pep8naming>=0.12.1
