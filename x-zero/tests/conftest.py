@@ -10,6 +10,7 @@ from x_zero.app import create_app
 from x_zero.database import db as _db
 
 from .factories import UserFactory
+from .common_config import DEFAULT_USER_PASSWORD
 
 
 @pytest.fixture
@@ -48,6 +49,6 @@ def db(app):
 @pytest.fixture
 def user(db):
     """Create user for the tests."""
-    user = UserFactory(password="myprecious")
+    user = UserFactory(password=DEFAULT_USER_PASSWORD)
     db.session.commit()
     return user
