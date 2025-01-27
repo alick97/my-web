@@ -3,7 +3,8 @@
 import logging
 import sys
 
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, Blueprint
+from flask_restful import Api
 
 from x_zero import commands, public, user
 from x_zero.authenticate.resource import AuthResource
@@ -17,7 +18,6 @@ from x_zero.extensions import (
     flask_static_digest,
     login_manager,
     migrate,
-    restful_api,
     ma,
 )
 
@@ -49,7 +49,6 @@ def register_extensions(app):
     debug_toolbar.init_app(app)
     migrate.init_app(app, db)
     flask_static_digest.init_app(app)
-    restful_api.init_app(app)
     app.config["WTF_CSRF_ENABLED"] = False
     return None
 
@@ -102,11 +101,14 @@ def register_marshallow(app):
 
 def register_restful_api(app):
     """Register restful api"""
+    api_bp = Blueprint("api", __name__, url_prefix="/api")
+    restful_api = Api(api_bp)
     # route
-    restful_api.add_resource(AuthResource, "/api/v1/auth/login")
+    restful_api.add_resource(AuthResource, "/v1/auth/login")
     # user route
-    restful_api.add_resource(UserResource, "/api/v1/user")
-    restful_api.init_app(app)
+    restful_api.add_resource(UserResource, "/v1/user")
+    # restful_api.init_app(app)
+    app.register_blueprint(api_bp)
 
 def configure_logger(app):
     """Configure loggers."""
