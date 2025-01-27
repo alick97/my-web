@@ -9,7 +9,9 @@ from flask_restful import Api
 from x_zero import commands, public, user
 from x_zero.authenticate.resource import AuthResource
 from x_zero.authenticate.exception import AuthError
-from x_zero.user.resource import UserResource
+from x_zero.user.resource import (
+    UserResource, UserResourceList
+)
 from x_zero.extensions import (
     bcrypt,
     cache,
@@ -106,7 +108,8 @@ def register_restful_api(app):
     # route
     restful_api.add_resource(AuthResource, "/v1/auth/login")
     # user route
-    restful_api.add_resource(UserResource, "/v1/user")
+    restful_api.add_resource(UserResource, "/v1/user/<int:user_id>")
+    restful_api.add_resource(UserResourceList, "/v1/user")
     # restful_api.init_app(app)
     app.register_blueprint(api_bp)
 

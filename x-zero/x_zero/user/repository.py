@@ -9,3 +9,11 @@ class UserRepository:
         if not user:
             raise NotFoundException()
         return user
+    
+    @staticmethod
+    def get_user_by_id(user_id: int) -> User:
+        user = User.query.filter(User.id == user_id).first()
+        if not user:
+            raise NotFoundException()
+        return user
+

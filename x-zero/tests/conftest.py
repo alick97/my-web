@@ -52,3 +52,16 @@ def user(db):
     user = UserFactory(password=DEFAULT_USER_PASSWORD)
     db.session.commit()
     return user
+
+@pytest.fixture
+def logged_in_user(db, testapp):
+    """Create user for the tests."""
+    user = UserFactory(password=DEFAULT_USER_PASSWORD)
+    db.session.commit()
+    
+    params = {
+        "username": user.username,
+        "password": DEFAULT_USER_PASSWORD
+    }
+    testapp.post_json("/api/v1/auth/login", params=params)
+    return user

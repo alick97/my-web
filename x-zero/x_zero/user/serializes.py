@@ -7,3 +7,8 @@ class UserCreateSchema(Schema):
     password = fields.Str(required=True, load_only=True, validate=validate.Length(min=1, max=20))
 
     
+
+class UserDetailSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    username = fields.Str(required=True, validate=validate.Length(min=1, max=20))
+    email = fields.Email(required=True, validate=validate.Length(min=1, max=30))
