@@ -4,6 +4,8 @@
 #
 #    pip-compile --no-annotate --output-file=requirements/prod.txt requirements/prod.in
 #
+--trusted-host files.pythonhosted.org
+
 alembic==1.14.1
 aniso8601==10.0.0
 bcrypt==4.2.1

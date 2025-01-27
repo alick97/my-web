@@ -15,3 +15,6 @@ black>=21.11b1
 # flake8isort>=4.1.1                                                                                                                                                
 # isort>=5.10.1                                                                                                                                                      
 # pep8naming>=0.12.1
+
+# package manage
+pip-tools==7.4.1
