@@ -1,10 +1,11 @@
 import { User } from "../../api/auth/user"
 import { Auth } from "../../api/auth"
+import { useStorage } from '@vueuse/core'
 
-const state = {
+const state = useStorage('auth-state', {
     user: null,
     isAuthenticated: false,
-}
+})
 
 interface AuthParam {
     name: string;
@@ -27,6 +28,7 @@ const actions = {
             commit("setIsAuthenticated", true);
         } catch (e) {
             commit("setIsAuthenticated", false); 
+            throw e;
         }
     }
 }

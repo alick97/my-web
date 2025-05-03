@@ -8,7 +8,7 @@
 
   color-scheme: light dark;
   color: rgba(38, 34, 34, 0.87);
-  background-color: #f8f1f1;
+  background-color: var(--xz-color-primary-light-9);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -71,18 +71,18 @@ button:focus-visible {
   /* text-align: center; */
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
+// @media (prefers-color-scheme: light) {
+//   :root {
+//     color: #213547;
+//     background-color: #ffffff;
+//   }
+//   a:hover {
+//     color: #747bff;
+//   }
+//   button {
+//     background-color: #f9f9f9;
+//   }
+// }
 
 @tailwind base;
 @tailwind components;

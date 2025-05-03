@@ -1,40 +1,54 @@
 <template>
 <div>
-<p>welcome to login in page <span v-if="isAuthorizedOk"> , {{ store.state.auth.user.name }} </span></p>
-<Form ref="form" :model="formInline" :rules="ruleInline" @on-validate="handleValidate">
-    <FormItem prop="name">
-        <Input type="text" v-model="name" placeholder="Username"></Input>
-    </FormItem>
-    <FormItem prop="password">
-        <Input type="password" v-model="password" placeholder="Password"></Input>
-    </FormItem>
-    <FormItem>
-        <Button class="form-button" type="primary" @click="handleSubmit">Signin</Button>
-        <Button class="form-button" type="primary" @click="resetForm">Reset</Button>
-    </FormItem>
-</Form>
+  <el-container>
+    <el-header class="text-center mt-16 mb-8 text-3xl">
+        Welcome to login in x-zero<span v-if="isAuthorizedOk">, {{ store.state.auth.user.name }} </span>
+    </el-header> 
+    <el-main>
+      <div class="flex justify-center">
+        <el-form ref="formRef" :model="formInline" :rules="rules" label-position="left" label-width="auto">
+            <el-form-item label="name" prop="name" required>
+                <el-input type="text" v-model="formInline.name" placeholder="Username"></el-input>
+            </el-form-item>
+            <el-form-item label="password" prop="password" required>
+                <el-input type="password" v-model="formInline.password" placeholder="Password"></el-input>
+            </el-form-item>
+            <div class="flex justify-around mt-8">
+                <el-button type="primary" @click="handleSubmit">Signin</el-button>
+                <el-button type="primary" @click="resetForm">Reset</el-button>
+            </div>
+        </el-form>
+      </div>
+    </el-main>
+    <el-footer>
+        
+    </el-footer>
+  </el-container>
+  
 
 </div>
 </template>
 <script setup lang="ts">
-import { Form, FormItem, Input, Button } from "view-ui-plus";
-import { reactive, ref, watch, computed } from "vue";
+import { reactive, ref, watch, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { ElMessage, type FormInstance, type FormRules } from "element-plus";
 import { useStore } from "../../store";
 
 const store = useStore();
 const router = useRouter();
-const form = ref(null);
+const formRef = ref<FormInstance>();
 
-const name = ref("");
-const password = ref("");
+interface AuthParam {
+    name: string;
+    password: string;
+}
 
-const formInline = reactive({
-    name,
-    password,
+const formInline = reactive<AuthParam>({
+    name: '',
+    password: '',
 });
 
-const ruleInline = {
+const rules = {
     name: [
         { required: true, message: "Please fill in the user name", trigger: "blur" },
     ],
@@ -44,49 +58,51 @@ const ruleInline = {
     ]
 }
 
-interface AuthParam {
-    name: string;
-    password: string;
-}
 
-function handleSubmit() {
-    form.value?.validate((valid) => {
-        if (valid) {
-            console.log(formInline.name, formInline.password);
-            store.dispatch("auth/authorize", {name: name.value, password: password.value})
-        } else {
-            this.$Message.error("login failed");
-        }
-    })
-}
-
-function handleValidate(prop: string, status: boolean, error: string) {
-    console.log("handle validate", prop, status, error);
+const handleSubmit = async () => {
+    if (!formRef.value) return
+    try {
+        const res = await formRef.value.validate()
+        console.log("submit ", formInline.name, formInline.password, res)
+        await store.dispatch("auth/authorize", {name: formInline.name, password: formInline.password})
+    } catch (error) {
+        ElMessage.error("login failed")
+        console.log("login error", error)
+    }
 }
 
 function resetForm() {
-    form.value?.resetFields();
-}
+    if (!formRef.value) return
+        formRef.value.resetFields()
+    }
 
 const isAuthorizedOk = computed(() => {
     return store.getters["auth/isAuthorizedOk"];
 });
 
+const toHome = () => {
+    ElMessage.success({"message": "redirect after 2s", "duration": 1500});
+    setTimeout(() => {
+        console.log("success login, go home ...");
+        router.push({name: "home"});
+    }, 2000);
+}
+
 watch(() => isAuthorizedOk.value, (isOk) => {
-    console.log("is auth ok change,", isOk);
+    console.debug("is auth ok change,", isOk);
     if (isOk) {
-      name.value = store.state.auth.user.name;
-      router.push({name: "home"});
-      console.log("success login, go home ...");
+        toHome()
     } else {
-      name.value = "";
+    }
+})
+
+onMounted(() => {
+    if (isAuthorizedOk.value) {
+        toHome()
     }
 })
 
 </script>
 <style lang="scss" scoped>
-.form-button {
-    margin-right: 1rem;
-}
 
 </style>
