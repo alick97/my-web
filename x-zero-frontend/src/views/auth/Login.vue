@@ -11,7 +11,7 @@
                 <el-input type="text" v-model="formInline.name" placeholder="Username"></el-input>
             </el-form-item>
             <el-form-item label="password" prop="password" required>
-                <el-input type="password" v-model="formInline.password" placeholder="Password"></el-input>
+                <el-input type="password" v-model="formInline.password" show-password placeholder="Password"></el-input>
             </el-form-item>
             <div class="flex justify-around mt-8">
                 <el-button type="primary" @click="handleSubmit">Signin</el-button>
@@ -81,11 +81,12 @@ const isAuthorizedOk = computed(() => {
 });
 
 const toHome = () => {
-    ElMessage.success({"message": "redirect after 2s", "duration": 1500});
+    const s = 5;
+    ElMessage.success({"message": `redirect after ${s}s`, "duration": s*1000-100});
     setTimeout(() => {
         console.log("success login, go home ...");
         router.push({name: "home"});
-    }, 2000);
+    }, s * 1000);
 }
 
 watch(() => isAuthorizedOk.value, (isOk) => {
