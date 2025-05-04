@@ -1,22 +1,5 @@
-import { createStore, useStore as baseUseStore, Store } from "vuex";
-import { InjectionKey } from "vue";
-import auth from "./modules/auth"
-
-const store = createStore({
-  modules: {
-    auth,
-  }
-});
-
-const key: InjectionKey<Store<any>> = Symbol();
-
-function useStore() {
-  // return baseUseStore(key);
-  return baseUseStore();
-}
+import { useAuthStore } from "./modules/auth"
 
 export {
-  store,
-  key,
-  useStore,
+  useAuthStore,
 }

@@ -1,52 +1,67 @@
 import { User } from "../../api/auth/user"
 import { Auth } from "../../api/auth"
 import { useStorage } from '@vueuse/core'
-
-const state = useStorage('auth-state', {
-    user: null,
-    isAuthenticated: false,
-})
+import { defineStore } from "pinia"
+import { reactive, watch } from "vue";
 
 interface AuthParam {
     name: string;
     password: string;
 }
 
-// getters
-const getters = {
-    isAuthorizedOk(state) {
-        return state.isAuthenticated;
-    }
+interface AuthState {
+    user: User,
+    isAuthenticated: Boolean,
 }
-
 // actions
-const actions = {
-    async authorize({commit, state}, authParam: AuthParam) {
-        try {
-            const user = await Auth.authByNamePassword(authParam.name, authParam.password);
-            commit("setUserInfo", user);
-            commit("setIsAuthenticated", true);
-        } catch (e) {
-            commit("setIsAuthenticated", false); 
-            throw e;
-        }
+const authorize = async (state: AuthState, authParam: AuthParam) => {
+    try {
+        const user = await Auth.authByNamePassword(authParam.name, authParam.password);
+        state.user = user;
+        state.isAuthenticated = true;
+    } catch (e) {
+        state.isAuthenticated = false;
+        throw e;
     }
 }
 
-// mutations
-const mutations = {
-    setIsAuthenticated(state, isAuthenticated: boolean) {
-        state.isAuthenticated = isAuthenticated;
-    },
-    setUserInfo(state, user: User) {
-        state.user = user;
-    },
-}
+const useAuthStore = defineStore("authStore", {
+    state: (): AuthState => {
+        const storedState = useStorage<AuthState>('auth-state', {
+            user: null,
+            isAuthenticated: false,
+        });
+        
+        const s = reactive({
+            user: storedState.value.user,
+            isAuthenticated: storedState.value.isAuthenticated,
+        });
 
-export default {
-    namespaced: true,
-    state,
-    getters,
-    actions,
-    mutations,
+        watch(
+            () => s,
+            (newState) => {
+                storedState.value = { ...newState };
+            },
+            { deep: true }
+        );
+        
+        watch(storedState, (newStoredState) => {
+            s.user = newStoredState.user;
+            s.isAuthenticated = newStoredState.isAuthenticated;
+        });
+        
+        return s;
+    },
+    getters: {
+        isAuthorizedOk: (state) => {
+            return state.isAuthenticated;
+        }
+    },
+    actions: {
+        async authorize(authParam: AuthParam) { return await authorize(this, authParam); }
+    },
+});
+
+export {
+    useAuthStore
 }

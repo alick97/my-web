@@ -2,7 +2,7 @@
 <div>
   <el-container>
     <el-header class="text-center mt-16 mb-8 text-3xl">
-        Welcome to login in x-zero<span v-if="isAuthorizedOk">, {{ store.state.auth.user.name }} </span>
+        Welcome to login in x-zero<span v-if="isAuthorizedOk">, {{ authStore.user.name }} </span>
     </el-header> 
     <el-main>
       <div class="flex justify-center">
@@ -32,9 +32,9 @@
 import { reactive, ref, watch, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { ElMessage, type FormInstance, type FormRules } from "element-plus";
-import { useStore } from "../../store";
+import { useAuthStore } from "../../store";
 
-const store = useStore();
+const authStore = useAuthStore();
 const router = useRouter();
 const formRef = ref<FormInstance>();
 
@@ -64,7 +64,7 @@ const handleSubmit = async () => {
     try {
         const res = await formRef.value.validate()
         console.log("submit ", formInline.name, formInline.password, res)
-        await store.dispatch("auth/authorize", {name: formInline.name, password: formInline.password})
+        await authStore.authorize({name: formInline.name, password: formInline.password});
     } catch (error) {
         ElMessage.error("login failed")
         console.log("login error", error)
@@ -77,7 +77,7 @@ function resetForm() {
     }
 
 const isAuthorizedOk = computed(() => {
-    return store.getters["auth/isAuthorizedOk"];
+    return authStore.isAuthorizedOk;
 });
 
 const toHome = () => {
