@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拖拽上传文件示例</title>
+    <style>
+        .drop-zone {
+            width: 400px;
+            height: 200px;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .drop-zone--over {
+            background-color: #f0f0f0;
+        }
+        .drop-zone__input {
+            display: none;
+        }
+        .file-list {
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="drop-zone">
+        <span class="drop-zone__prompt">将文件拖到此处或点击选择文件</span>
+        <input type="file" class="drop-zone__input" multiple>
+    </div>
+    <div class="file-list" id="fileList"></div>
+
+    <script>
+        document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+            const dropZoneElement = inputElement.closest(".drop-zone");
+            const fileListElement = document.getElementById("fileList");
+
+            // 点击打开文件选择器
+            dropZoneElement.addEventListener("click", (e) => {
+                inputElement.click();
+            });
+
+            // 文件选择后更新文件列表
+            inputElement.addEventListener("change", (e) => {
+                if (inputElement.files.length) {
+                    updateFileList(inputElement.files);
+                }
+            });
+
+            // 拖拽进入高亮
+            dropZoneElement.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                dropZoneElement.classList.add("drop-zone--over");
+            });
+
+            // 拖拽离开或结束取消高亮
+            ["dragleave", "dragend"].forEach((type) => {
+                dropZoneElement.addEventListener(type, (e) => {
+                    dropZoneElement.classList.remove("drop-zone--over");
+                });
+            });
+
+            // 拖拽释放处理文件
+            dropZoneElement.addEventListener("drop", (e) => {
+                e.preventDefault();
+                if (e.dataTransfer.files.length) {
+                    inputElement.files = e.dataTransfer.files;
+                    updateFileList(e.dataTransfer.files);
+                }
+                dropZoneElement.classList.remove("drop-zone--over");
+            });
+
+            // 更新文件列表显示
+            function updateFileList(files) {
+                fileListElement.innerHTML = "<h3>已选择的文件：</h3>";
+                Array.from(files).forEach((file, index) => {
+                    const fileItem = document.createElement("p");
+                    fileItem.textContent = `${index + 1}. ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+                    fileListElement.appendChild(fileItem);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
